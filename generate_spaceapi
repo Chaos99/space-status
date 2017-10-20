@@ -26,12 +26,20 @@ fi
 
 lastchange=$(/usr/share/bytespeicher/connected_devices --last-change)
 
+if [ $(/usr/share/bytespeicher/message) -eq 0 ]
+then
+        open="false"
+        message="$connected_string"
+else
+        message="$connected_string | $(/usr/share/bytespeicher/message)" 
+fi
+
 cat <<EOL
 {
         "state": {
                 "open": $open,
                 "lastchange": $lastchange,
-                "message": "$connected_string"
+                "message": "$message"
         },
         "status": "$connected_string",
         "open": $open,
